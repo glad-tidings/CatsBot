@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35312.102
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{778DAE3C-4631-46EA-AA77-85C1314464D9}") = "CatsBot", "CatsBot.vbproj", "{7A5BAC01-0680-435C-A713-E705C023AFCE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7A5BAC01-0680-435C-A713-E705C023AFCE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A5BAC01-0680-435C-A713-E705C023AFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A5BAC01-0680-435C-A713-E705C023AFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A5BAC01-0680-435C-A713-E705C023AFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2788E128-08BB-4502-B1DA-D4E680113BF1}
+	EndGlobalSection
+EndGlobal
