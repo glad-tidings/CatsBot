@@ -14,15 +14,15 @@ Module Program
         Dim jsonConfig As String = ""
         Dim jsonProxy As String = ""
         Try
-            jsonConfig = File.ReadAllText("Config.json")
+            jsonConfig = File.ReadAllText("data.txt")
         Catch ex As Exception
-            Console.WriteLine("file 'Config.json' not found")
+            Console.WriteLine("file 'data.txt' not found")
             GoTo Get_Error
         End Try
         Try
-            jsonProxy = File.ReadAllText("Proxy.json")
+            jsonProxy = File.ReadAllText("proxy.txt")
         Catch ex As Exception
-            Console.WriteLine("file 'Proxy.json' not found")
+            Console.WriteLine("file 'proxy.txt' not found")
             GoTo Get_Error
         End Try
         Try
