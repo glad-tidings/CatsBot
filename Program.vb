@@ -7,10 +7,23 @@ Module Program
     Private proxies As Proxy()
 
     Sub Main()
-        Console.WriteLine("---------------------------------  Cats Bot Starting  ---------------------------------")
+        Console.WriteLine("   ____      _       ____   ___ _____ 
+  / ___|__ _| |_ ___| __ ) / _ \_   _|
+ | |   / _` | __/ __|  _ \| | | || |  
+ | |__| (_| | |_\__ \ |_) | |_| || |  
+  \____\__,_|\__|___/____/ \___/ |_|  
+                                      ")
         Console.WriteLine()
+        Console.WriteLine("Github: https://github.com/glad-tidings/CatsBot")
+        Console.WriteLine()
+mainMenu:
+        Console.Write("Select an option:
+1. Run bot
+2. Create session
+>> ")
+        Dim opt As String = Console.ReadLine()
 
-        Dim queries As New List(Of CatsQuery)
+        Dim queries As CatsQuery()
         Dim jsonConfig As String = ""
         Dim jsonProxy As String = ""
         Try
@@ -26,36 +39,55 @@ Module Program
             GoTo Get_Error
         End Try
         Try
-            queries = JsonSerializer.Deserialize(Of List(Of CatsQuery))(jsonConfig)
+            queries = JsonSerializer.Deserialize(Of CatsQuery())(jsonConfig)
             proxies = JsonSerializer.Deserialize(Of Proxy())(jsonConfig)
         Catch ex As Exception
             Console.WriteLine("configuration is wrong")
             GoTo Get_Error
         End Try
 
-        Dim Cats As New Thread(
-            Sub()
-                Dim counter As Integer = 0
-                For Each Query In queries.Where(Function(x) x.Active)
-                    Dim BotThread As New Thread(Sub() CatsThread(counter, Query))
-                    BotThread.Start()
+        If Not String.IsNullOrEmpty(opt) Then
+            Select Case opt
+                Case "1"
+                    Dim Cats As New Thread(
+                        Sub()
+                            For Each Query In queries.Where(Function(x) x.Active)
+                                Dim BotThread As New Thread(Sub() CatsThread(Query))
+                                BotThread.Start()
 
-                    Thread.Sleep(1000)
-                    counter += 1
-                Next
-            End Sub)
-        Cats.Start()
+                                Thread.Sleep(120000)
+                            Next
+                        End Sub)
+                    Cats.Start()
+                Case "2"
+                    For Each Query In queries
+                        If Not File.Exists($"sessions\{Query.Name}.session") Then
+                            Console.WriteLine()
+                            Console.WriteLine($"Create session for account {Query.Name} ({Query.Phone})")
+                            Dim vw As TelegramMiniApp.WebView = New TelegramMiniApp.WebView(Query.API_ID, Query.API_HASH, Query.Name, Query.Phone, "", "")
+                            If vw.Save_Session().Result Then
+                                Console.WriteLine("Session created")
+                            Else
+                                Console.WriteLine("Create session failed")
+                            End If
+                        End If
+                    Next
+
+                    Environment.Exit(0)
+                Case Else
+                    GoTo mainMenu
+            End Select
+        Else
+            GoTo mainMenu
+        End If
 
 Get_Error:
         Console.ReadLine()
     End Sub
 
-    Public Async Sub CatsThread(Index As Integer, Query As CatsQuery)
-        Thread.Sleep(120000 * Index)
-
+    Public Async Sub CatsThread(Query As CatsQuery)
         While True
             Dim RND As New Random()
-
             Try
                 Dim Bot As New CatsBots(Query, proxies)
                 If Not Bot.HasError Then

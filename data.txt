@@ -1,8 +1,10 @@
 ﻿[
       {
         "Index": 0,
-        "Name": "account1",
-        "Auth": "query_id of account1",
+        "Name": "Account1",
+        "API_ID": "",
+        "API_HASH": "",
+        "Phone": "+12223334455",
         "Active": true,
         "Task": true,
         "TaskSleep": [ 7, 20 ],
@@ -11,8 +13,10 @@
       },
       {
         "Index": 1,
-        "Name": "account2",
-        "Auth": "query_id of account2",
+        "Name": "Account2",
+        "API_ID": "",
+        "API_HASH": "",
+        "Phone": "+12223334455",
         "Active": true,
         "Task": true,
         "TaskSleep": [ 7, 20 ],

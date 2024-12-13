@@ -4,7 +4,6 @@ Imports System.Net.Http.Headers
 Imports System.Text.Json
 
 Public Class CatsBots
-
     Public ReadOnly PubQuery As CatsQuery
     Private ReadOnly PubProxy As Proxy()
     Public ReadOnly UserDetail As CatsUserDetailResponse
@@ -16,7 +15,7 @@ Public Class CatsBots
         PubQuery = Query
         PubProxy = Proxy
         IPAddress = GetIP().Result
-        PubQuery.Auth = getSession(Query.Name)
+        PubQuery.Auth = getSession().Result
         Dim GetUser = CatsLoginAsync().Result
         If GetUser IsNot Nothing Then
             UserDetail = GetUser
@@ -60,20 +59,14 @@ Public Class CatsBots
         End If
     End Function
 
-    Private Function getSession(sessionName As String) As String
-        Dim start As New ProcessStartInfo With {
-            .FileName = "py",
-            .Arguments = $"ts.py -S ""{sessionName}-catsgang_bot-api.catshouse.club""",
-            .UseShellExecute = False,
-            .WorkingDirectory = "",
-            .RedirectStandardOutput = True
-        }
-        Using process As Process = Process.Start(start)
-            Using reader = process.StandardOutput
-                Dim result As String = reader.ReadToEnd()
-                Return result.Replace(vbLf, "").Replace(vbCr, "")
-            End Using
-        End Using
+    Private Async Function getSession() As Task(Of String)
+        Dim vw As TelegramMiniApp.WebView = New TelegramMiniApp.WebView(PubQuery.API_ID, PubQuery.API_HASH, PubQuery.Name, PubQuery.Phone, "catsgang_bot", "https://api.catshouse.club/")
+        Dim url As String = Await vw.Get_URL()
+        If url <> "" Then
+            Return url.Split(New String() {"tgWebAppData="}, StringSplitOptions.None)(1).Split(New String() {"&tgWebAppVersion"}, StringSplitOptions.None)(0)
+        Else
+            Return ""
+        End If
     End Function
 
     Private Async Function CatsLoginAsync() As Task(Of CatsUserDetailResponse)
@@ -146,5 +139,4 @@ Public Class CatsBots
             Return Nothing
         End If
     End Function
-
 End Class

@@ -1,21 +1,17 @@
 ﻿Imports System.Text.Json.Serialization
 
 Public Class CatsQuery
-    <JsonPropertyName("Index")>
-    Public Property Index As Integer
-    <JsonPropertyName("Name")>
+    Public Property Index As Long
     Public Property Name As String
-    <JsonPropertyName("Auth")>
+    Public Property API_ID As String
+    Public Property API_HASH As String
+    Public Property Phone As String
     Public Property Auth As String
-    <JsonPropertyName("Active")>
     Public Property Active As Boolean
-    <JsonPropertyName("Task")>
     Public Property Task As Boolean
-    <JsonPropertyName("TaskSleep")>
     Public Property TaskSleep As Integer()
-    <JsonPropertyName("DaySleep")>
+    Public Property Food As Boolean
     Public Property DaySleep As Integer()
-    <JsonPropertyName("NightSleep")>
     Public Property NightSleep As Integer()
 End Class
 
