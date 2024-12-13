@@ -10,6 +10,7 @@ I am not responsible for your account. Please consider the potential risks befor
 | Multithreading            | ✅        |
 | Auto Claim Task           | ✅        |
 | Multi Proxy               | ✅        |
+| Auto Query ID             | ✅        |
 
 ## Releases
 [Download BOT](https://github.com/glad-tidings/CatsBot/releases/)
